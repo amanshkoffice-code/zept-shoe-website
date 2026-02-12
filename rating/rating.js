@@ -1,5 +1,6 @@
 // Load rating HTML
-fetch("rating/rating.html")
+fetch("https://amanshkoffice-code.github.io/zept-shoe-website/rating/rating.html")
+
   .then(res => res.text())
   .then(html => {
     document.getElementById("rating-container").innerHTML = html;

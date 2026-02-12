@@ -9,8 +9,9 @@
 }
 
 .rating-popup.show {
-  display: flex;
+  display: flex !important;
 }
+
 
 .rating-box {
   background: #0b0b12;
