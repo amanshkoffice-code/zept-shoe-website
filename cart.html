@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ZEPT | Cart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    body {
+      background: radial-gradient(circle at top, #0b0b1a, #000);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ================= CART HEADER ================= */
+    .cart-header {
+      padding: 80px 8% 40px;
+      text-align: center;
+    }
+
+    .cart-header h1 {
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 1px;
+    }
+
+    .cart-header span {
+      color: #9b8cff;
+    }
+
+    /* ================= CART LAYOUT ================= */
+    .cart-container {
+      padding: 0 8% 80px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 40px;
+    }
+
+    /* ================= CART ITEM ================= */
+    .cart-item {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.05);
+      border-radius: 22px;
+      padding: 20px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: 0.4s;
+    }
+
+    .cart-item:hover {
+      box-shadow: 0 0 30px rgba(127,92,255,0.6);
+    }
+
+    .cart-item img {
+      width: 140px;
+      object-fit: contain;
+      margin-right: 20px;
+    }
+
+    .cart-info h5 {
+      font-family: 'Orbitron', sans-serif;
+      margin-bottom: 6px;
+    }
+
+    .cart-info p {
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    .price {
+      color: #7f5cff;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    /* ================= QUANTITY ================= */
+    .qty {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .qty button {
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      transition: 0.3s;
+    }
+
+    .qty button:hover {
+      background: #7f5cff;
+    }
+
+    /* ================= SUMMARY ================= */
+    .summary {
+      background: rgba(255,255,255,0.06);
+      border-radius: 24px;
+      padding: 30px;
+      border: 1px solid rgba(255,255,255,0.08);
+      height: fit-content;
+    }
+
+    .summary h4 {
+      font-family: 'Orbitron', sans-serif;
+      margin-bottom: 20px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      color: #ccc;
+    }
+
+    .summary-row.total {
+      font-size: 1.3rem;
+      color: #fff;
+    }
+
+    /* ================= CHECKOUT BUTTON ================= */
+    .checkout-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 50px;
+      border: none;
+      margin-top: 20px;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(90deg, #7f5cff, #00d4ff);
+      box-shadow: 0 0 30px rgba(0,212,255,0.6);
+      transition: 0.4s;
+    }
+
+    .checkout-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 50px rgba(0,212,255,0.9);
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 900px) {
+      .cart-container {
+        grid-template-columns: 1fr;
+      }
+    }
+    .cart-close-btn {
+  position: fixed;
+  top: 18px;
+  right: 20px;
+  z-index: 9999;
+
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(127, 92, 255, 0.6);
+
+  color: #fff;
+  font-size: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cart-close-btn:hover {
+  background: #7f5cff;
+  box-shadow: 0 0 15px rgba(127, 92, 255, 0.9);
+  transform: rotate(90deg) scale(1.1);
+}
+
+  </style>
+</head>
+
+<body>
+<!-- Close Cart Button -->
+<button class="cart-close-btn" onclick="closeCart()">
+  <i class="bi bi-x-lg"></i>
+</button>
+
+  <!-- HEADER -->
+  <div class="cart-header">
+    <h1>Your <span>Cart</span></h1>
+    <p>Next-Gen Performance Shoes Ready to Move</p>
+  </div>
+
+  <!-- CART -->
+  <div class="cart-container">
+
+    <!-- ITEMS -->
+    <div>
+      <div class="cart-item">
+        <img src="shoe1.png">
+        <div class="cart-info">
+          <h5>Neon Stride</h5>
+          <p>Size: 9 | Color: Black</p>
+          <div class="price">$299</div>
+          <div class="qty">
+            <button>-</button>
+            <span>1</span>
+            <button>+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cart-item">
+        <img src="shoe2.png">
+        <div class="cart-info">
+          <h5>Velocity X</h5>
+          <p>Size: 8 | Color: White</p>
+          <div class="price">$279</div>
+          <div class="qty">
+            <button>-</button>
+            <span>1</span>
+            <button>+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="summary">
+      <h4>Order Summary</h4>
+
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span>$578</span>
+      </div>
+
+      <div class="summary-row">
+        <span>Shipping</span>
+        <span>$20</span>
+      </div>
+
+      <div class="summary-row total">
+        <span>Total</span>
+        <span>$598</span>
+      </div>
+
+      <button class="checkout-btn">
+        Proceed to Checkout
+      </button>
+    </div>
+
+  </div>
+<script>
+function closeCart() {
+  window.history.back();
+}
+</script>
+
+</body>
+</html>

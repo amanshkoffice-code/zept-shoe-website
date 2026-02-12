@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>View Product | ZEPT</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+  background: #000;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Close Button */
+.close-btn {
+  position: fixed;
+  top: 20px;
+  right: 25px;
+  z-index: 9999;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.7);
+  border: 1px solid #7f5cff;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.close-btn:hover {
+  background: #7f5cff;
+  box-shadow: 0 0 15px rgba(127,92,255,.9);
+  transform: rotate(90deg);
+}
+
+/* Layout */
+.product-view {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 80px 0;
+}
+
+/* Images */
+.product-gallery img {
+  width: 100%;
+  border-radius: 14px;
+  background: radial-gradient(circle at top, #111, #000);
+}
+
+.thumb-group img {
+  width: 80px;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 1px solid #222;
+  transition: 0.3s;
+}
+.thumb-group img:hover {
+  border-color: #7f5cff;
+  transform: scale(1.05);
+}
+
+/* Product Info */
+.product-info h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.4rem;
+}
+
+.price {
+  font-size: 1.6rem;
+  color: #7f5cff;
+  font-weight: 600;
+}
+
+.size-btn {
+  border: 1px solid #333;
+  background: transparent;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 8px;
+  margin-right: 8px;
+  transition: 0.3s;
+}
+.size-btn:hover,
+.size-btn.active {
+  background: #7f5cff;
+  box-shadow: 0 0 10px rgba(127,92,255,.7);
+}
+
+/* Buttons */
+.action-btn {
+  padding: 14px 32px;
+  border-radius: 30px;
+  border: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.add-cart {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #7f5cff;
+}
+.add-cart:hover {
+  background: #7f5cff;
+  box-shadow: 0 0 20px rgba(127,92,255,.9);
+}
+
+.buy-now {
+  background: linear-gradient(135deg,#7f5cff,#9b6cff);
+  color: #000;
+}
+.buy-now:hover {
+  box-shadow: 0 0 25px rgba(127,92,255,1);
+}
+
+/* Mobile */
+@media(max-width:768px){
+  .product-info h1 {
+    font-size: 1.9rem;
+  }
+}
+</style>
+</head>
+
+<body>
+<body>
+
+<!-- Close -->
+<div class="close-btn" onclick="history.back()">
+  <i class="bi bi-x-lg"></i>
+</div>
+
+<section class="product-view container">
+  <div class="row align-items-center g-5">
+
+    <!-- Images -->
+    <div class="col-lg-6">
+      <div class="product-gallery mb-3">
+        <img id="mainImg" alt="Product Image">
+      </div>
+
+      <div class="d-flex gap-3 thumb-group" id="thumbs"></div>
+    </div>
+
+    <!-- Info -->
+    <div class="col-lg-6 product-info">
+      <h1 id="productName"></h1>
+
+      <p id="productDesc" class="text-muted"></p>
+
+      <div class="price my-3">
+        ₹ <span id="productPrice"></span>
+      </div>
+
+      <!-- Sizes -->
+      <div class="mb-4">
+        <strong>Size:</strong><br><br>
+        <button class="size-btn active">7</button>
+        <button class="size-btn">8</button>
+        <button class="size-btn">9</button>
+        <button class="size-btn">10</button>
+      </div>
+
+      <!-- Actions -->
+      <div class="d-flex gap-3 flex-wrap">
+        <button class="action-btn add-cart">
+          <i class="bi bi-cart"></i> Add to Cart
+        </button>
+        <button class="action-btn buy-now">
+          Buy Now
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+const product = JSON.parse(localStorage.getItem("zeptProduct"));
+
+if (!product) {
+  window.location.href = "index.html";
+}
+
+document.getElementById("productName").innerText = product.name;
+document.getElementById("productDesc").innerText = product.desc;
+document.getElementById("productPrice").innerText = product.price;
+
+const mainImg = document.getElementById("mainImg");
+const thumbs = document.getElementById("thumbs");
+
+mainImg.src = product.images[0];
+
+thumbs.innerHTML = "";
+product.images.forEach(img => {
+  const image = document.createElement("img");
+  image.src = img;
+  image.onclick = () => mainImg.src = img;
+  thumbs.appendChild(image);
+});
+</script>
+
+</body>
+
+</body>
+</html>

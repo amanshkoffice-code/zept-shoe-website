@@ -1,0 +1,51 @@
+.rating-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.rating-popup.show {
+  display: flex;
+}
+
+.rating-box {
+  background: #0b0b12;
+  padding: 30px;
+  border-radius: 14px;
+  text-align: center;
+  color: white;
+  width: 300px;
+  box-shadow: 0 0 40px rgba(127,92,255,0.6);
+  animation: pop 0.4s ease;
+}
+
+@keyframes pop {
+  from { transform: scale(0.7); opacity: 0 }
+  to { transform: scale(1); opacity: 1 }
+}
+
+.stars i {
+  font-size: 28px;
+  margin: 6px;
+  cursor: pointer;
+  color: #444;
+  transition: 0.3s;
+}
+
+.stars i.hovered,
+.stars i.selected {
+  color: gold;
+  transform: scale(1.2);
+}
+
+#ratingClose {
+  position: absolute;
+  right: 18px;
+  top: 14px;
+  cursor: pointer;
+  font-size: 22px;
+}
